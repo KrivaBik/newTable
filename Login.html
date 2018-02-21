@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>authorization</title>
+    <style>
+        body {
+            position: fixed;
+            left:0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            border-spacing: 0;
+            border: solid 1px lightslategray;
+
+        }
+        ul {
+            list-style-type: none;
+            display: table;
+            height: 100%;
+            width: 100%;
+            -webkit-padding-start: 0;
+        }
+        li {
+            height: 100px;
+            width: 100px;
+            margin: 5px;
+        }
+        .userButtons{
+            width: 100%;
+            height: 100%;
+        }
+        .pageContent{
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .leftContent{
+            height: 100%;
+            width: 90%;
+            margin: 0;
+            padding: 0;
+        }
+        .rightContent{
+
+            height: 100%;
+            width: 10%;
+            margin: 0;
+            padding: 0;
+            background-color: #DCDCDC;
+            /*прокрутка*/
+            /*overflow*/
+        }
+        .userInitialization{
+            position: relative;
+            display: none;
+            z-index: 1;
+            /*text-align: center;*/
+            width: 30%;
+            height: 40%;
+            margin: auto;
+
+        }
+        .loginRows{
+            position: relative;
+            width: 100%;
+            height: 33%;
+            margin: 0;
+            padding: 0;
+        }
+        .initInfo{
+            position: relative;
+            width: 100%;
+            height: 33%;
+            padding: 30px;
+
+        }
+        .initButtons{
+            position: relative;
+            width: 50%;
+            padding: 30px;
+            margin: 0;
+            text-align: center;
+
+        }
+        .dataInitInfo{
+             position: relative;
+             width: 100%;
+             height: 100%;
+             border-width: 0;
+             font-size: 270%;
+         }
+        .dataInitInfo2{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-width: 0;
+            color: red;
+        }
+        .initButton{
+            /*position: relative;*/
+            width: 100%;
+            height: 100%;
+            padding: 5px;
+            margin:0;
+
+        }
+        .divTable{
+            position: relative;
+            background-color: #DCDCDC;
+        }
+        #infoLog{
+            /*!*display: inline-block;*!*/
+            /*display: none;*/
+        }
+
+    </style>
+</head>
+<body>
+<table border="1">
+    <tr class="pageContent">
+        <td class="leftContent">
+
+            <div id='idUserInitialization' class="userInitialization">
+                <table class="divTable">
+                    <form name="person" method="post" action="/login">
+                    <tr  class="loginRows">
+                        <td colspan="2" class="initInfo"><input class="dataInitInfo" name="userLogin"id="infoLog" ></td>
+                        <!--<td class="initRight"><button  id="reversal" class="initButtons" type="button">Отмена</button></td>-->
+                    </tr>
+                    <tr  class="loginRows">
+
+                        <td class="initInfo"><input class="dataInitInfo" id="dataPassword" name="pass"  placeholder="Пароль" type="password"></td>
+                        <td class="initButtons"><button id="entry" class="initButton" type="button" onclick="entryOnclick()">Вход</button></td>
+                        <!--<td class="initRight"><button id="entry" class="initButtons" type="button">Вход</button></td>-->
+                    </tr>
+
+                    <tr class="loginRows">
+                        <td  class="initInfo"><div class="dataInitInfo2" id="infoLog2" ></div></td>
+                        <td class="initButtons"><button  id="reversal" class="initButton"  type="button">Отмена</button></td>
+                    </tr>
+                    </form>
+                </table>
+            </div>
+
+        </td>
+        <td class="rightContent">
+            <ul id="ulButtons">
+                <li><button id="User1" class="userButtons" >User1</button></li>
+                <li><button id="User2" class="userButtons" >User2</button></li>
+                <li><button id="User3" class="userButtons" >User3</button></li>
+            </ul>
+        </td>
+    </tr>
+</table>
+<script>
+    var ulButtons=document.getElementById('ulButtons');
+    var User1=document.getElementById('User1');
+    var User2=document.getElementById('User2');
+    var User3=document.getElementById('User3');
+    var dataPassword=document.getElementById('dataPassword');
+    var infoLog=document.getElementById('infoLog');
+    var infoLog2=document.getElementById('infoLog2');
+    var entry=document.getElementById('entry');
+    var reversal=document.getElementById('reversal');
+    var userInitialization=document.getElementById('idUserInitialization');
+    var wantedUserLogin="";
+    var wantedUserPassword=0;
+    User1.disabled = false;
+    User2.disabled = false;
+    User3.disabled = false;
+
+    ulButtons.onclick=function (event) {
+        var targ = event.target;
+       if (targ.className == 'userButtons') {
+            infoLog.value=targ.innerHTML;
+            wantedUserLogin=targ.innerHTML;
+            userInit ();
+            setFocus();
+        }
+    };
+    document.addEventListener('keyup',function (e) {
+    if (e.keyCode === 13){
+        if(userInitialization.style.display=="block"){
+            e.stopPropagation();
+            entryOnclick ();
+        }
+    } else if(e.keyCode === 27){
+        if(userInitialization.style.display=="block") {
+            e.stopPropagation();
+            unUserInit();
+        }
+    }
+});
+
+
+
+function entryOnclick () {
+        wantedUserPassword=dataPassword.value;
+        document.forms.person.submit();
+        findingUser();
+    }
+    reversal.onclick=function () {
+        unUserInit ();
+    };
+    function userInit () {
+        userInitialization.style.display="block";
+        User1.disabled = true;
+        User2.disabled = true;
+        User3.disabled = true;
+    }
+    function unUserInit () {
+        userInitialization.style.display="none";
+        User1.disabled = false;
+        User2.disabled = false;
+        User3.disabled = false;
+        cleanDataPassword();
+    }
+    function cleanDataPassword() {
+        dataPassword.value="";
+        infoLog2.innerHTML=" ";
+    }
+    function wrongPassword () {
+        cleanDataPassword();
+        infoLog2.innerHTML="Не верный пароль!";
+//        setTimeout(function() {infoLog.innerHTML=wantedUserLogin }, 2000);
+    }
+    function findingUser() {
+
+//        var formData =new FormData(document.forms.person);
+//        console.log(formData);
+//        var xhr = new XMLHttpRequest();
+//        xhr.open("POST", "/login", false);
+//        xhr.send(JSON.stringify(formData));
+
+
+    }
+    function setFocus() {
+        dataPassword.focus();
+    }
+
+</script>
+</body>
+</html>

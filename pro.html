@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form  name="person" >
+    <input name="name" value="Виктор">
+    <input name="surname" value="Цой">
+    <button onclick="lol()">ok</button>
+</form>
+
+<script>
+
+    var formData = document.forms.person;
+    var form = JSON.stringify(formData);
+
+    console.log("formData=",JSON.parse(form));
+
+
+</script>
+</body>
+</html>

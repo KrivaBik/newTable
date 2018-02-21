@@ -1,0 +1,543 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <script src="num/min/numeral.min.js"></script>
+    <script src="num/min/locales.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style type="text/css">
+        body {
+            position: fixed;
+            left:0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            border-spacing: 0;
+        }
+        th{
+            background-color: #DCDCDC;
+            border: solid 1px lightslategray;
+            font-size: 22px;
+        }
+
+        ul {
+            list-style-type: none;
+            display: table;
+            height: 100%;
+            width: 100%;
+            -webkit-padding-start: 0;
+        }
+        li {
+            height: 100px;
+            width: 100px;
+            margin: 5px;
+        }
+        .pageContent{
+            position: relative;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .centerContent{
+            position: relative;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding:5px;
+        }
+        .dialogWindow{
+            width: 350px;
+            height: 200px;
+        }
+        .dialogTr{
+            height: 15%;
+            width: 100%;
+        }
+
+        .dialogTd{
+            height: 100%;
+            width: 50%;
+            margin: 0;
+            padding:5px;
+            font-size: 22px;
+        }
+        .dialogInput{
+            width: 100%;
+            font-size: 22px;
+
+        }
+        .dialogButtom{
+            font-size: 22px;
+            width: 100%;
+        }
+        .rightContent{
+            position: relative;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding:5px;
+        }
+
+        .topInputContent{
+            position: relative;
+            width: calc(100% - 1px);
+            height: calc(100% - 5px);
+            font-size: 50px;
+            margin: 0;
+            padding: 0;
+            border: solid 1px lightslategray;
+        }
+
+        .topAndBottomRow{
+            padding: 0;
+            height: 7%;
+        }
+        .tableRows{
+            width: 100%;
+            height: 40px;
+
+        }
+
+        .widthTopBottomInput{
+            width: 80%;
+            padding: 0;
+            position: relative;
+            background-color: #DCDCDC;
+        }
+        .summaWidth{
+            width:20%;
+            border: solid 1px lightslategray;
+            padding: 0;
+            position: relative;
+
+
+
+        }
+        .barcodeNameWidth{
+            width: 25%;
+        }
+        .idPriceNumberWidth{
+            width: 10%;
+        }
+
+        .tableOne{
+             border-spacing:0;
+             border-collapse:collapse;
+             padding: 0;
+             border: solid 1px lightslategray;
+        }
+        .tableTwo{
+              border-spacing:0;
+              border-collapse:collapse;
+              padding: 0;
+          }
+        .tdInTwoTable{
+            border: solid 1px lightslategray;
+        }
+        .buttons{
+            width: 100%;
+            height: 100%;
+        }
+
+        .tdbarcode{
+            text-align:left;
+            border: solid 1px lightslategray;
+            font-size: 20px;
+        }
+        .tdid{
+            text-align: center;
+            border: solid 1px lightslategray;
+            font-size: 20px;
+        }
+        .tdname{
+            text-align:left;
+            border: solid 1px lightslategray;
+            font-size: 20px;
+        }
+        .tdprice{
+            text-align:right;
+            border: solid 1px lightslategray;
+            font-size: 20px;
+        }
+        .tdqty{
+            text-align:right;
+            border: solid 1px lightslategray;
+            font-size: 20px;
+        }
+        .tdsum{
+            text-align:right;
+            border: solid 1px lightslategray;
+            font-size: 20px;
+        }
+        .infoDiv{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #DCDCDC;
+            font-size: 35px;
+            color: red;
+        }
+        .outputDivBottom{
+            position: relative;
+            display:inline-block;
+            width: 50%;
+            height: 100%;
+            margin: 0  ;
+            padding:3% 0;
+            background-color: #DCDCDC;
+            font-size: 35px;
+            text-align: left;
+        }
+        #divRest,#divChequeSum{
+            text-align: right;
+        }
+        .botomInputContent{
+            width: 100%;
+            height: 100%;
+            font-size: 50px;
+            margin: 0;
+            padding: 0;
+            border: solid 1px lightslategray;
+
+        }
+        .outputBottom{
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            border-width: 0;
+            background-color: #DCDCDC;
+            font-size: 30px;
+            margin:0;
+
+        }
+
+    </style>
+
+</head>
+<body>
+<dialog id="dialogCloseCheque" class="dialogWindow" > <!-- id="dialogCloseCheque"-->
+    <form class="dialogForm" method="dialog">
+    <table class="centerContent">
+        <tr class="dialogTr">
+            <td class="dialogTd">Сумма чека</td>
+            <td class="dialogTd"><input class="dialogInput" id="dialogCloseChequeInputClientSumCheque" type="text" disabled></td>
+        </tr>
+        <tr class="dialogTr">
+            <td class="dialogTd">Наличные</td>
+            <td class="dialogTd"><input class="dialogInput" id="dialogCloseChequeInputClientCash" type="text" ></td>
+        </tr>
+        <tr class="dialogTr">
+            <td class="dialogTd">Сумма клиента</td>
+            <td class="dialogTd"><input class="dialogInput" id="dialogCloseChequeInputClientSum" type="text" value="" disabled></td>
+        </tr>
+        <tr class="dialogTr">
+            <td class="dialogTd">Сдача по чеку</td>
+            <td class="dialogTd"><input class="dialogInput" id="dialogCloseChequeInputClientest" type="text" value="" disabled></td>
+        </tr>
+        <tr class="dialogTr">
+            <td class="dialogTd"><button type="button" class="dialogButtom" id="closeCheckId">Закрыть чек</button></td>
+            <td class="dialogTd"><button type="button" class="dialogButtom" id="closeDialId">Отмена</button></td>
+
+
+        </tr>
+    </table>
+    </form>
+</dialog>
+<table class="pageContent" id="pageContent">
+    <tr>
+        <td class="centerContent">
+            <table  class="tableOne">
+                <tr class="topAndBottomRow ">
+                    <td class="widthTopBottomInput" colspan="5"><input class="topInputContent" id="dataInput" type="text" value="" ></td>
+                    <!--<td class="summaWidth" ><input class="outputBottom" id="inputRest" type="text"  value="Сдача:" disabled></td>-->
+                    <td class="summaWidth" >
+                        <div class="outputDivBottom" disabled><div class=" divTextCenter">Сдача:</div></div><div class="outputDivBottom"  disabled><div class=" divTextCenter" id="divRest">0,00</div></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableTwo" colspan="6">
+                        <table   id="centerTable" >
+                            <tr id="ticketTableHeader" class="tableRows tableThreeBorder">
+                                <th class="barcodeNameWidth">Штрихкод</th>
+                                <th class="idPriceNumberWidth">Код</th>
+                                <th class="barcodeNameWidth">Наименование</th>
+                                <th class="idPriceNumberWidth">Цена</th>
+                                <th class="idPriceNumberWidth">Кол-во</th>
+                                <th class="summaWidth">Сумма</th>
+                            </tr>
+                            <tr>
+                                <td class="tdInTwoTable tdbarcode"></td>
+                                <td class="tdInTwoTable tdid"></td>
+                                <td class="tdInTwoTable tdname"></td>
+                                <td class="tdInTwoTable tdprice"></td>
+                                <td class="tdInTwoTable tdqty"></td>
+                                <td class="tdInTwoTable tdsum summaWidth"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="topAndBottomRow">
+                    <!--<td class="widthTopBottomInput" colspan="5"><input class="botomInputContent" id="divInfo" type="text" disabled ></td>-->
+                    <td class="widthTopBottomInput" colspan="5"><div class="infoDiv" id="infoDiv"></div></td>
+                    <!--<td class="summaWidth"><input class="outputBottom" id="inputChequeSum" type="text" value="Cумма:" disabled></td>-->
+                    <td class="summaWidth" ><div class="outputDivBottom" disabled><div class=" divTextCenter">Сумма:</div></div><div class="outputDivBottom"  disabled><div class=" divTextCenter"id="divChequeSum">0,00</div></div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="rightContent">
+            <ul>
+                <li><button  id="buttonAdd" class="buttons"  >Добавить</button></li>
+                <li><button  id="buttonCheck" class="buttons"  >Чек</button></li>
+                <li><button onclick="removeTr()" class="buttons"  >Удалить</button></li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+<script >
+numeral.locale('ru');
+    var products=[{barcode:1234,id:101,name:"prod1", price:10},
+        {barcode:1234,id:102,name:"prod2", price:20},
+        {barcode:1235,id:103,name:"prod3", price:30},
+        {barcode:1236,id:104,name:"prod4", price:40}];
+    var buttonAdd = document.getElementById('buttonAdd');
+    var buttonTicket = document.getElementById('buttonCheck');
+    buttonAdd.addEventListener('click', addProductToChequeTable);
+    buttonTicket.addEventListener('click', startCheckButton);
+    var closeCheckId = document.getElementById('closeCheckId');
+    var closeDialId = document.getElementById('closeDialId');
+    closeCheckId.addEventListener('click',dialCloseCheck);
+    closeDialId.addEventListener('click',dialCloseDial );
+    var dialogCloseCheque=document.getElementById('dialogCloseCheque');
+    var dataInput = document.getElementById('dataInput');
+    var divChequeSum=document.getElementById('divChequeSum');
+    var divRest=document.getElementById('divRest');
+    var infoDiv=document.getElementById('infoDiv');
+    var dialogCloseChequeInputClientSumCheque=document.getElementById('dialogCloseChequeInputClientSumCheque');
+    var dialogCloseChequeInputClientCash=document.getElementById('dialogCloseChequeInputClientCash');
+    var dialogCloseChequeInputClientSum=document.getElementById('dialogCloseChequeInputClientSum');
+    var dialogCloseChequeInputClientest=document.getElementById('dialogCloseChequeInputClientest');
+    var chequeData=[];
+    var kaz=0;
+
+    dataInput.focus();
+    closeCheckId.disabled = true;
+    dataInput.addEventListener('keyup',function (e) {
+        if (e.keyCode === 13){
+            e.stopPropagation();
+            addProductToChequeTable();
+            dataInputClean();
+        } else if(e.keyCode === 187){
+            startCheckButton();
+        }
+    });
+    function addProductToChequeTable() {
+        divRestClean();
+        var prod= findProduct(products);
+        if(!prod){
+            productNotFound();
+            setFocus();
+            return;
+        } else if(prod!==1){
+            var chequeItem= addChequeTableRow(prod);
+            chequeData.push(chequeItem);
+            infoDivClean();
+            setFocus();
+            divChequeSum.innerHTML=formatNumtral(calcChequeSum(chequeData));
+        }
+
+    }
+
+    function findProduct(products) {
+        for(var i=0;i<products.length;i++) {
+            var productItem= products[i];
+            if( inputReplace(dataInput)== productItem.barcode||inputReplace(dataInput) == productItem.id||inputReplace(dataInput)== productItem.name)
+            return productItem;
+        }
+        if(inputReplace(dataInput)!==''){
+            return null;
+        }else if(inputReplace(dataInput)==''){
+            setFocus();
+            infoDivClean();
+            return 1;
+        }
+
+    }
+
+    function addChequeTableRowCell(tr, className, value) {
+        var td = document.createElement('td');
+        td.classList.add(className);
+        td.innerHTML = value;
+        tr.appendChild(td);
+    }
+
+    function addChequeTableRow(prodData) {
+        var ticketTableHeader = document.getElementById('ticketTableHeader'),
+            ticketTableBody=ticketTableHeader.parentNode;
+        var tr = document.createElement('tr');
+        var chequeItem= {barcode:prodData.barcode,prodID:prodData.id,name:prodData.name,price:prodData.price,qty:1,sum:prodData.price};
+        addChequeTableRowCell(tr, "tdbarcode", chequeItem.barcode);
+        addChequeTableRowCell(tr, "tdid", chequeItem.prodID);
+        addChequeTableRowCell(tr, "tdname", chequeItem.name);
+        addChequeTableRowCell(tr, "tdprice", formatNumtral(chequeItem.price));
+        addChequeTableRowCell(tr, "tdqty", chequeItem.qty);
+        addChequeTableRowCell(tr, "tdsum", formatNumtral(chequeItem.sum));
+        tr.classList.add('tableRows');
+        ticketTableBody.insertBefore(tr, ticketTableBody.rows[ticketTableBody.rows.length-1]);
+        return chequeItem;
+    }
+
+    function calcChequeSum(chequeData) {
+        var chequeSum=0;
+        for(var i=0;i<chequeData.length;i++) {
+            var chequeItem= chequeData[i];
+            chequeSum+=chequeItem.qty*chequeItem.price;
+        }
+
+        return chequeSum;
+    }
+
+    function openDial() {
+        dataInputClean();
+        dialogCloseCheque.showModal();
+        dialogCloseChequeInputClientSumCheque.value=formatNumtral(calcChequeSum(chequeData));
+        dialogCloseChequeInputClientCash.oninput = function() {
+           dialogCloseChequeInputClientSum.value=formatNumtral(dialogCloseChequeInputClientCash.value);
+            if(parseInt(dialogCloseChequeInputClientCash.value)>=parseInt(dialogCloseChequeInputClientSumCheque.value)){
+                dialogCloseChequeInputClientest.value=formatNumtral(parseInt(dialogCloseChequeInputClientCash.value)-calcChequeSum(chequeData));
+                closeCheckId.disabled = false;
+            }else {
+                closeCheckId.disabled = true;
+                dialogCloseChequeInputClientest.value="Недостаточно средств";
+            }
+            if(dialogCloseChequeInputClientCash.value==0)
+                dialogCloseChequeInputClientest.value="";
+
+        };
+        dialogEsc();
+        enterCloseCheck();
+
+        
+    }
+
+    function closeCheck() {
+
+        divChequeSum.innerHTML="0,00";
+        dataInput.value=null;
+        chequeData.length=0;
+        var ticketTableHeader = document.getElementById('ticketTableHeader'),
+            ticketTableBody=ticketTableHeader.parentNode;
+        var firstThRow=ticketTableBody.firstChild,lastTdRow=ticketTableBody.lastChild;
+        var taleRow=ticketTableBody.children.length;
+        for (var i=0;i<taleRow;i++){
+            if(firstThRow.nextElementSibling!==lastTdRow.previousElementSibling){
+                firstThRow.nextElementSibling.remove();
+            }
+        }
+        divRest.innerHTML=formatNumtral(dialogCloseChequeInputClientest.value);
+            setFocus();
+        infoDivClean();
+            closeDial();
+
+
+    }
+
+    function closeDial() {
+        if(dialogCloseCheque.open){
+            dialogCloseChequeInputClientCash.value="";
+            dialogCloseChequeInputClientSum.value="";
+            dialogCloseChequeInputClientest.value="";
+            dialogCloseCheque.close();
+            setFocus();
+            dataInputClean();
+        }
+
+    }
+    function startCheckButton() {
+        if (calcChequeSum(chequeData)>0){
+            openDial();
+        }
+        setFocus();
+    }
+
+    function dialCloseCheck() {
+        closeCheck();
+
+
+    }
+
+    function dialCloseDial() {
+        closeDial();
+    }
+    function setFocus() {
+        dataInput.focus();
+    }
+
+    function dataInputClean() {
+        dataInput.value=null;
+    }
+
+    function divRestClean() {
+        divRest.innerHTML="0,00";
+
+    }
+
+    function infoDivClean() {
+        infoDiv.innerHTML="";
+
+    }
+
+    function productNotFound() {
+        infoDiv.innerHTML="Product not found";
+
+    }
+
+    function dialogEsc() {
+        window.addEventListener('keyup',function (e) {
+            if (e.keyCode === 27) {
+                e.stopPropagation();
+                closeDial();
+
+            }
+        });
+    }
+    function enterCloseCheck() {
+        dialogCloseChequeInputClientCash.addEventListener('keyup',function (e) {
+            if (e.keyCode === 13){
+                e.stopPropagation();
+                closeCheck();
+
+            }
+        });
+
+
+    }
+    function inputReplace(dataInput1) {
+        var za=dataInput1.value;
+        za.trim();
+        return  za.replace(/[ \t]{1,}/g,'');
+    }
+    function formatNumtral(x) {
+        return numeral(x).format ('0,0.00');
+
+    }
+function unFormatNumtral(x) {
+    return numeral(x).unformat ('0,0.00');
+
+}
+
+</script>
+</body>
+</html>
